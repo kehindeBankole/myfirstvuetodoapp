@@ -1,8 +1,10 @@
 <template>
   <div class="inputs">
     <div class="inputboxes">
-      <input type="text" v-model="title" class="inout" />
+     <form v-on:submit="add(title)">
+        <input type="text" v-model="title" class="inout" />
       <input type="button" value="add" class="btn" v-on:click="add(title)" />
+     </form>
     </div>
   </div>
   <div
@@ -22,6 +24,7 @@
     <input
       type="button"
       value="delete"
+      class="btn"
       style="float:right"
       v-on:click="remove(todo)"
     />
@@ -64,7 +67,7 @@ export default {
     },
     remove(todo) {
       this.newdata = this.todos.filter((element) => {
-        return todo.id !== element.id;
+        return todo.title !== element.title;
       });
       this.todos = this.newdata;
       localStorage.setItem("todos", JSON.stringify(this.todos));
@@ -90,6 +93,7 @@ export default {
   outline: 0;
   color: white;
   cursor: pointer;
+  padding: 8px;
 }
 .inputs {
   margin-top: 2em;
@@ -107,7 +111,7 @@ export default {
 .isdone {
   text-decoration: line-through;
 }
-.inout {
+.inout , .btn{
   border-radius: 0;
   border: 1px solid black;
   padding: 8px;
@@ -120,5 +124,8 @@ export default {
   outline: 0;
   color: white;
   cursor: pointer;
+}
+.delete{
+  padding: 8px;
 }
 </style>
